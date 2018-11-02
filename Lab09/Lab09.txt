@@ -1,0 +1,11 @@
+a. 3 endpoints:
+	https://calvincs262-monopoly.appspot.com/monopoly/v1/player/id
+	https://calvincs262-monopoly.appspot.com/monopoly/v1/players
+	https://calvincs262-monopoly.appspot.com/monopoly/v1/player
+Implemented in PlayerResource.java
+b. i. Java Database Connectivity
+  ii. 1. A JDBC Statement is essentially an adapter that allows you to make SQL query statements to a specific JDBC Connection within your program..
+      2. A JDBC ResultSet is essentially a SQL relation modeled in Java. List<Player> is a list of Player objects whose instance variables are based on the data in ResultSet returned by SelectPlayer(s).
+ iii. getValueStringOrNull is essentially used to reformat Strings to be suitable for SQL INSERT/UPDATE commands.
+c. i. It provides an object-oriented way to represent and manipulate Player "objects" which are typically represented in a non-object oriented way in a database.
+  ii. It's an object-oriented representation of one row of the Player table.
