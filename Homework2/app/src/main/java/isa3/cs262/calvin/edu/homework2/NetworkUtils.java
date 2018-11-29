@@ -10,16 +10,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NetworkUtils {
+class NetworkUtils {
 
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     private static final String MONOPOLY_BASE_URL =  "https://calvincs262-monopoly.appspot.com/monopoly/v1/player"; // Base URI for the Monopoly API
-    private static final String ID_PARAM = ""; // Parameter for the search string
 
     static String getPlayerInfo(String playerIDString) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-        String playerJSONString = null;
+        String playerJSONString;
 
         try {
             Uri builtURI;
@@ -37,7 +36,7 @@ public class NetworkUtils {
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null) {
                 // Nothing to do.
                 return null;
@@ -48,7 +47,7 @@ public class NetworkUtils {
    /* Since it's JSON, adding a newline isn't necessary (it won't affect
       parsing) but it does make debugging a *lot* easier if you print out the
       completed buffer for debugging. */
-                buffer.append(line + "\n");
+                buffer.append(line).append("\n");
             }
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.

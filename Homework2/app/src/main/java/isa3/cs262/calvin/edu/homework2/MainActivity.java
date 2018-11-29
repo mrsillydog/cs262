@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -27,9 +26,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<String>{
+        implements LoaderManager.LoaderCallbacks<String> {
 
     private EditText mSearchInput;
     private Button mFetchButton;
@@ -40,14 +40,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mSearchInput = (EditText) findViewById(R.id.search_field);
+        mSearchInput = findViewById(R.id.search_field);
         mSearchInput.setTransformationMethod(null);
-        mPlayerList = (ListView) findViewById(R.id.player_list);
-        mFetchButton = (Button) findViewById(R.id.fetch_button);
+        mPlayerList = findViewById(R.id.player_list);
+        mFetchButton = findViewById(R.id.fetch_button);
 
-        if(getSupportLoaderManager().getLoader(0)!=null) {
+        if (getSupportLoaderManager().getLoader(0) != null) {
             getSupportLoaderManager().initLoader(0, null, this);
         }
     }
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
 
-        if(networkInfo != null && networkInfo.isConnected()) {
+        if (networkInfo != null && networkInfo.isConnected()) {
             Bundle queryBundle = new Bundle();
             queryBundle.putString("mSearchInput", mQueryString);
             getSupportLoaderManager().restartLoader(0, queryBundle, this);
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new PlayerLoader(this, bundle.getString("mSearchInput"));
+        return new PlayerLoader(this, Objects.requireNonNull(bundle).getString("mSearchInput"));
     }
 
     @Override
@@ -88,11 +88,11 @@ public class MainActivity extends AppCompatActivity
             String id;
             String name;
             String email;
-            List<String> player_array_list = new ArrayList<String>();
-            if(jsonObject.has("items")) {
+            List<String> player_array_list = new ArrayList<>();
+            if (jsonObject.has("items")) {
                 JSONArray itemsArray = jsonObject.getJSONArray("items");
                 //Iterate through the results
-                for(int i = 0; i<itemsArray.length(); i++) {
+                for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject player = itemsArray.getJSONObject(i); //Get the current item
 
                     try {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
                     } catch (Exception e) {
                         email = "no email";
                     }
-                    player_array_list.add(id+", "+name+", "+email);
+                    player_array_list.add(id + ", " + name + ", " + email);
                 }
             } else {
                 try {
@@ -133,10 +133,10 @@ public class MainActivity extends AppCompatActivity
                     email = "no email";
                 }
 
-                player_array_list.add(id+", "+name+", "+email);
+                player_array_list.add(id + ", " + name + ", " + email);
             }
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_list_item_1,
                     player_array_list);
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void displayToast(String message) {
+    private void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_LONG).show();
     }

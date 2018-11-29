@@ -14,21 +14,25 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/search_field"
         android:text="@string/fetch"
-        android:onClick="findPlayer"/>
+        android:onClick="findPlayer"
+        android:layout_toEndOf="@+id/search_field" />
 
     <EditText
         android:id="@+id/search_field"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberPassword" />
+        android:inputType="numberPassword"
+        android:importantForAutofill="no"
+        tools:targetApi="o" />
 
     <ListView
         android:id="@+id/player_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_field"
-        android:layout_marginLeft="8dp">
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp">
     </ListView>
 
 </RelativeLayout>

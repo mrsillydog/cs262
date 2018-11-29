@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
-public class PlayerLoader extends AsyncTaskLoader<String> {
-    private String playerID;
+class PlayerLoader extends AsyncTaskLoader<String> {
+    private final String playerID;
 
     public PlayerLoader(@NonNull Context context, String qString) {
         super(context);

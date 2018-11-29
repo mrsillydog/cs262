@@ -17,16 +17,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText mValue2EditText;
     private TextView mResultTextView;
     private Spinner mOperatorSpinner;
-    private Float result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mValue1EditText = (EditText) findViewById(R.id.editText_firstValue);
-        mValue2EditText = (EditText) findViewById(R.id.editText_secondValue);
-        mResultTextView = (TextView) findViewById(R.id.textview_result);
-        mOperatorSpinner = (Spinner) findViewById(R.id.spinner);
+        mValue1EditText = findViewById(R.id.editText_firstValue);
+        mValue2EditText = findViewById(R.id.editText_secondValue);
+        mResultTextView = findViewById(R.id.textview_result);
+        mOperatorSpinner = findViewById(R.id.spinner);
     }
 
     @Override
@@ -55,12 +54,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     public void calculateResult(View view) {
         Log.d(LOG_TAG, "Button clicked, calculating!");
         String value1 = mValue1EditText.getText().toString();
-        if(value1.equals("")) {
+        if (value1.equals("")) {
             mValue1EditText.setHint("Please enter a number.");
             mValue2EditText.setHint("Value 2");
             mResultTextView.setText("");
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Integer finalValue1 = Integer.parseInt(value1);
         String value2 = mValue2EditText.getText().toString();
-        if(value2.equals("")) {
+        if (value2.equals("")) {
             mValue2EditText.setHint("Please enter a number.");
             mValue1EditText.setHint("Value 1");
             mResultTextView.setText("");
@@ -78,14 +75,20 @@ public class MainActivity extends AppCompatActivity {
         mValue2EditText.setHint("Value 2");
         Integer finalValue2 = Integer.parseInt(value2);
         String operator = mOperatorSpinner.getSelectedItem().toString();
-        if(operator.equals("+")) {
-            result = finalValue1.floatValue() + finalValue2.floatValue();
-        } else if (operator.equals("-")) {
-            result = finalValue1.floatValue() - finalValue2.floatValue();
-        } else if (operator.equals("*")) {
-            result = finalValue1.floatValue() * finalValue2.floatValue();
-        } else {
-            result = finalValue1.floatValue() / finalValue2.floatValue();
+        Float result;
+        switch (operator) {
+            case "+":
+                result = finalValue1.floatValue() + finalValue2.floatValue();
+                break;
+            case "-":
+                result = finalValue1.floatValue() - finalValue2.floatValue();
+                break;
+            case "*":
+                result = finalValue1.floatValue() * finalValue2.floatValue();
+                break;
+            default:
+                result = finalValue1.floatValue() / finalValue2.floatValue();
+                break;
         }
 
         mResultTextView.setText(result.toString());
